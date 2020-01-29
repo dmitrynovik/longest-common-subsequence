@@ -25,10 +25,13 @@ namespace LCS
                 return "";
 
             var table = ComputeImpl(x, y);
-            return new string(PrintTableInReverse(table, x).Reverse().ToArray());
+
+            return new string(PrintLCSInReverse(table, x)
+                .Reverse()
+                .ToArray());
         }
 
-        private IEnumerable<char> PrintTableInReverse(LcsEntry[,] table, string x)
+        private IEnumerable<char> PrintLCSInReverse(LcsEntry[,] table, string x)
         {
             var i = table.GetLength(0) - 1;
             var j = table.GetLength(1) - 1;
