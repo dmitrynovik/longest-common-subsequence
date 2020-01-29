@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace LCS
 {
-    public class LongestCommonSubsequence
+    public static class LongestCommonSubsequence
     {
-        public enum Direction { UpLeft, Up, Left}
+        public enum Direction { UpLeft, Up, Left }
 
         public class LcsEntry
         {
@@ -19,11 +19,7 @@ namespace LCS
             public int Score { get; }
         }
 
-        public string ComputeLongestPalindromeSubsequence(string x) => Compute(x, Reverse(x));
-
-        private static string Reverse(string x) => x == null ? null : new string(x.Reverse().ToArray());
-
-        public string Compute(string x, string y)
+        public static string Compute(string x, string y)
         {
             if (string.IsNullOrEmpty(x) || string.IsNullOrEmpty(y))
                 return "";
@@ -35,7 +31,7 @@ namespace LCS
                 .ToArray());
         }
 
-        private IEnumerable<char> PrintLCSInReverse(LcsEntry[,] table, string x)
+        private static IEnumerable<char> PrintLCSInReverse(LcsEntry[,] table, string x)
         {
             var i = table.GetLength(0) - 1;
             var j = table.GetLength(1) - 1;
@@ -56,7 +52,7 @@ namespace LCS
             }
         }
 
-        private LcsEntry[,] ComputeImpl(string x, string y)
+        private static LcsEntry[,] ComputeImpl(string x, string y)
         {
             var table = new LcsEntry[x.Length, y.Length];
 
@@ -84,7 +80,7 @@ namespace LCS
             return table;
         }// Compute
 
-        private int GetScoreAt(LcsEntry[,] table, int row, int column) => 
+        private static int GetScoreAt(LcsEntry[,] table, int row, int column) => 
             (row < 0 || column < 0) ? 0 : table[row, column].Score;
     }
 }

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace LCS.Test
 {
     [TestFixture]
-    public class Test
+    public class LCSTest
     {
         [Test]
         public void LCS_of_2_null_strings_is_empty() => Compute(null, null).Should().BeEmpty();

@@ -15,6 +15,6 @@ namespace LCS.Test
         [Test]
         public void Aaaa_Is_Aaaa() => Compute("aaaa").Should().Be("aaaa");
 
-        private string Compute(string x) => new LongestCommonSubsequence().ComputeLongestPalindromeSubsequence(x);
+        private string Compute(string x) => LongestPalindromeSusequence.Compute(x);
     }
 }
