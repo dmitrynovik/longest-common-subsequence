@@ -1,48 +1,76 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace LCS
 {
     public class LongestCommonSubsequence
     {
-        public enum Direction
-        {
-            UpLeft,
-            Up,
-            Left
-        }
+        public enum Direction { UpLeft, Up, Left}
 
         public class LcsEntry
         {
-            public Direction Direction { get; set;}
-            public int Score { get; set;}
+            public LcsEntry(Direction direction, int score)
+            {
+                Direction = direction;
+                Score = score;
+            }
+
+            public Direction Direction { get; }
+            public int Score { get; }
         }
 
-        public string Compute()
+        public string Compute(string x, string y)
         {
-            return null;
+            if (string.IsNullOrEmpty(x) || string.IsNullOrEmpty(y))
+                return "";
+
+            var table = ComputeImpl(x, y);
+            return new string(PrintTableInReverse(table, x).Reverse().ToArray());
         }
 
-        private LcsEntry[,] Compute(string x, string y)
+        private IEnumerable<char> PrintTableInReverse(LcsEntry[,] table, string y)
+        {
+            var i = table.GetLength(0) - 1;
+            var j = table.GetLength(1) - 1;
+
+            while (i >= 0 && j >= 0)
+            {
+                var e = table[i, j];
+                if (e.Direction == Direction.UpLeft)
+                {
+                    yield return y[i];
+                    i--;
+                    j--;
+                }
+                else if (e.Direction == Direction.Left)
+                    j--;
+                else
+                    i--;
+            }
+        }
+
+        private LcsEntry[,] ComputeImpl(string x, string y)
         {
             var table = new LcsEntry[x.Length, y.Length];
-            for (int i = 0; i < y.Length; ++i)
+
+            for (int i = 0; i < x.Length; ++i)
             {
-                for (int j = 0; j < x.Length; ++j)
+                for (int j = 0; j < y.Length; ++j)
                 {
                     if (x[i] == y[j])
                     {
                         var score = GetScoreAt(table, i - 1, j - 1) + 1;
-                        table[i,j] = new LcsEntry { Score = score, Direction = Direction.UpLeft };
+                        table[i,j] = new LcsEntry(Direction.UpLeft, score);
                     }
                     else if (GetScoreAt(table, i - 1, j) >= GetScoreAt(table, i, j - 1))
                     {
                         var score = GetScoreAt(table, i - 1, j);
-                        table[i,j] = new LcsEntry { Score = score, Direction = Direction.Up };
+                        table[i,j] = new LcsEntry(Direction.Up, score);
                     }
                     else
                     {
                         var score = GetScoreAt(table, i, j - 1);
-                        table[i,j] = new LcsEntry { Score = score, Direction = Direction.Left };
+                        table[i,j] = new LcsEntry(Direction.Left, score);
                     }
                 }
             }
