@@ -29,7 +29,7 @@ namespace LCS
                         var score = GetScoreAt(table, i - 1, j - 1) + 1;
                         table[i,j] = new LcsEntry { Score = score, Direction = Direction.UpLeft };
                     }
-                    else if (GetScoreAt(table, i - 1, j) >= GetScoreAt(i, j - 1))
+                    else if (GetScoreAt(table, i - 1, j) >= GetScoreAt(table, i, j - 1))
                     {
                         var score = GetScoreAt(table, i - 1, j);
                         table[i,j] = new LcsEntry { Score = score, Direction = Direction.Up };
@@ -44,6 +44,7 @@ namespace LCS
             return table;
         }// Compute
 
-        private int GetScoreAt(LcsEntry[,] table, int row, int column) => (row < 0 || column < 0) ? 0 : table[row, column];
+        private int GetScoreAt(LcsEntry[,] table, int row, int column) => 
+            (row < 0 || column < 0) ? 0 : table[row, column].Score;
     }
 }
