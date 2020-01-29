@@ -17,7 +17,12 @@ namespace LCS
             public int Score { get; set;}
         }
 
-        public LcsEntry[,] Compute(string x, string y)
+        public string Compute()
+        {
+            return null;
+        }
+
+        private LcsEntry[,] Compute(string x, string y)
         {
             var table = new LcsEntry[x.Length, y.Length];
             for (int i = 0; i < y.Length; ++i)
