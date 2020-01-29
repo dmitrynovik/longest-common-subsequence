@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LCS
@@ -18,6 +19,10 @@ namespace LCS
             public Direction Direction { get; }
             public int Score { get; }
         }
+
+        public string ComputeLongestPalindromeSubsequence(string x) => Compute(x, Reverse(x));
+
+        private static string Reverse(string x) => x == null ? null : new string(x.Reverse().ToArray());
 
         public string Compute(string x, string y)
         {
