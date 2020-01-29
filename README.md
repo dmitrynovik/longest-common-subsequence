@@ -1,6 +1,6 @@
 ## Longest Common Subsequence (LCS) problem solution in C#
 
-[Wikipedia](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+[Wikipedia article on LCS](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
 
 ### Example
