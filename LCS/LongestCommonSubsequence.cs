@@ -28,7 +28,7 @@ namespace LCS
             return new string(PrintTableInReverse(table, x).Reverse().ToArray());
         }
 
-        private IEnumerable<char> PrintTableInReverse(LcsEntry[,] table, string y)
+        private IEnumerable<char> PrintTableInReverse(LcsEntry[,] table, string x)
         {
             var i = table.GetLength(0) - 1;
             var j = table.GetLength(1) - 1;
@@ -38,7 +38,7 @@ namespace LCS
                 var e = table[i, j];
                 if (e.Direction == Direction.UpLeft)
                 {
-                    yield return y[i];
+                    yield return x[i];
                     i--;
                     j--;
                 }
